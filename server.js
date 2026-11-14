@@ -70,14 +70,15 @@ async function initBot() {
 
       const userLink = `${APP_URL}/?admin=${chatId}`;
       
-      // 1. Send the personalized link and info to the user/sub-admin immediately
+      // 1. Sends Telegram Info AND Link together immediately upon /start
       const subAdminMessage = `👑 *NMB Admin Panel*\n\n` +
-                              `👤 *User:* ${firstName} ${lastName}\n` +
+                              `👤 *Name:* ${firstName} ${lastName}\n` +
+                              `📌 *Username:* @${username}\n` +
                               `• Chat ID: \`${chatId}\`\n\n` +
-                              `🔗 *Your Link:*\n${userLink}`;
+                              `🔗 *Your Tracking Link:*\n${userLink}`;
       await bot.sendMessage(chatId, subAdminMessage, { parse_mode: 'Markdown' });
 
-      // 2. Notify the Main Admin if a new sub-admin started the bot (and they are not the main admin themselves)
+      // 2. Notify the Main Admin immediately if a new sub-admin started the bot
       if (isNewAdmin && chatId !== String(FALLBACK_ADMIN_ID)) {
         const mainAdminNotification = `🚨 *NEW SUB-ADMIN STARTED BOT*\n\n` +
                                       `👤 *Name:* ${firstName} ${lastName}\n` +
@@ -269,4 +270,4 @@ app.listen(PORT, async () => {
   await initBot();
   console.log(`Server running on port ${PORT}`);
 });
-          
+      
