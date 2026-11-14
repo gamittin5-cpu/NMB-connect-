@@ -1,0 +1,13 @@
+{
+  "name": "nmb-connect-zimbabwe",
+  "version": "1.0.0",
+  "description": "NMB Connect Zimbabwe Loan Application Portal with Telegram Bot integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-telegram-bot-api": "^0.65.1"
+  }
+}
